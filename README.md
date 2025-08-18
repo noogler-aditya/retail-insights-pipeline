@@ -10,7 +10,6 @@ This project automates the journey from **raw CSV retail transactions** → **cl
 - **ETL with Apache Spark**: Cleans, transforms, and aggregates sales data.
 - **Data Persistence**: Stores processed results in PostgreSQL.
 - **API Layer**: FastAPI serves processed data for analytics & dashboards.
-- **Containerized Workflow**: Fully orchestrated with Docker Compose.
 - **Volume Management**: Ensures repeatable Spark runs with atomic writes.
 - **Health Checks**: PostgreSQL service monitored for readiness before load.
 
@@ -38,14 +37,12 @@ This project automates the journey from **raw CSV retail transactions** → **cl
 - **Apache Spark 3.5** (via Bitnami image) – Scalable ETL processing
 - **PostgreSQL 15** – Robust relational database
 - **FastAPI** – Modern async Python API
-- **Docker & Docker Compose** – Portable, reproducible deployment
 
 ---
 
 ## 🚀 Getting Started
 
 ### 1️⃣ Prerequisites
-- [Docker](https://www.docker.com/get-started) & Docker Compose installed
 - Basic knowledge of Python & SQL (optional)
 
 ### 2️⃣ Clone the repository
@@ -63,12 +60,8 @@ DB_NAME=retail_db
 DB_PORT=5433   # default mapped port
 ```
 
-### 4️⃣ Start the pipeline
-```bash
-docker compose up --build
-```
 
-### 5️⃣ Access the services
+### 4 Access the services
 - **API** → [http://localhost:8000](http://localhost:8000)
 - **Postgres** → Host: `localhost`, Port: `5433`
 
@@ -105,14 +98,12 @@ docker compose up --build
 - The pipeline uses **atomic writes** (`/processed_sales/current`) to avoid Spark overwrite errors.
 - Spark job uses **temporary directories** for safe concurrent runs.
 - To reset everything (including volumes):
-```bash
-docker compose down --volumes --remove-orphans
-```
+
 
 ---
 
 ## 📌 Future Enhancements
-- ✅ Add Airflow/NiFi orchestration
+- ✅ Add multi-tenant system (will be given api key and shop id to every shop)
 - ✅ Expand API with filtering & analytics endpoints
 - ✅ Add dashboard UI with React/Next.js
 - ✅ Integrate monitoring (Prometheus + Grafana)
