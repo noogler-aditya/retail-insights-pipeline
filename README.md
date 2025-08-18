@@ -18,17 +18,25 @@ This project automates the journey from **raw CSV retail transactions** → **cl
 ## 📂 Project Structure
 ```bash
 .
-├── data/                     # Input raw CSV data
-├── processing/
-│   ├── spark_etl.py          # Spark ETL job
-│   ├── spark_entrypoint.sh   # Spark container entrypoint
-│   ├── app_entrypoint.sh     # API container entrypoint
 ├── api/
 │   └── main.py               # FastAPI app
-├── load_to_db.py             # Loads processed parquet → Postgres
-├── docker-compose.yml        # Service orchestration
-├── Dockerfile                # App image definition
-└── requirement.txt           # Python dependencies
+├── dashboard/
+│   └── app.py                # Dashboard application (e.g., Streamlit)
+├── data/
+│   ├── processed_sales/       # Processed parquet data
+│   └── indian_retail_tier2_tier3.csv  # Raw input dataset
+├── data_ingestion/
+│   └── fetch_sales.py        # Script for data ingestion
+├── db/
+│   └── load_to_db.py         # Loads processed parquet → Postgres
+├── processing/
+│   └── spark_etl.py          # Spark ETL job
+├── venv/                     # Python virtual environment (ignored in Docker)
+├── .env                      # Environment variables
+├── .gitignore                # Git ignore rules
+├── accuracy.ipynb            # Model evaluation notebook
+├── initial_EDA.ipynb         # Exploratory Data Analysis notebook
+├── requirement.txt           # Python dependencies
 ```
 
 ---
