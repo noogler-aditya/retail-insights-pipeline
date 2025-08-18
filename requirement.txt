@@ -1,0 +1,10 @@
+pandas
+pyarrow
+sqlalchemy
+psycopg2-binary
+python-dotenv
+fastapi
+uvicorn[standard]
+streamlit
+requests
+plotly
