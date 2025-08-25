@@ -42,7 +42,7 @@ This project automates the journey from **raw CSV retail transactions** → **cl
 ---
 
 ## ⚙️ Tech Stack
-- **Apache Spark 3.5** (via Bitnami image) – Scalable ETL processing
+- **Apache Spark 3.5**  – Scalable ETL processing
 - **PostgreSQL 15** – Robust relational database
 - **FastAPI** – Modern async Python API
 
