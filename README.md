@@ -1,19 +1,18 @@
 # Retail Pipeline 🚀
 
-An **end-to-end data pipeline** for processing retail sales data from **Tier-2 & Tier-3 Indian cities**.It automates the flow from **raw CSVs to a REST API**, powered by **Apache Spark**, **PostgreSQL**, and **FastAPI**.
+A modern **end-to-end data pipeline** for processing retail sales data from **Tier-2 & Tier-3 Indian cities**, powered by **Apache Spark**, **PostgreSQL**, and a lightweight **FastAPI service**.
+
+This project automates the journey from **raw CSV retail transactions** → **cleaned & aggregated data** → **database storage** → **REST API for insights**.
 
 ---
 
-## ✨ Workflow & Features
+## ✨ Features
 
-This project implements a classic ETL pattern to deliver analysis-ready data.
-**Raw CSV**→ **Spark (Clean & Aggregate)** → **PostgreSQL (Store)** → **FastAPI (Serve)**
-
-- **Scalable ETL**: Cleans and aggregates data efficiently with Apache Spark.
-- **Reliable Storage**: Persists processed data in PostgreSQL.
-- **Fast API Layer**: Exposes data for dashboards via FastAPI.
-- **Atomic Writes**: Ensures safe, repeatable Spark job execution.
-- **Health Checks**: Waits for the database to be ready before loading data.
+- **ETL with Apache Spark**: Cleans, transforms, and aggregates sales data.
+- **Data Persistence**: Stores processed results in PostgreSQL.
+- **API Layer**: FastAPI serves processed data for analytics & dashboards.
+- **Volume Management**: Ensures repeatable Spark runs with atomic writes.
+- **Health Checks**: PostgreSQL service monitored for readiness before load.
 
 ---
 
@@ -46,22 +45,28 @@ This project implements a classic ETL pattern to deliver analysis-ready data.
 
 ## ⚙️ Tech Stack
 
-**Apache Spark 3.5 | PostgreSQL 15 | FastAPI | Docker**
+- **Apache Spark 3.5** – Scalable ETL processing
+- **PostgreSQL 15** – Robust relational database
+- **FastAPI** – Modern async Python API
 
 ---
 
 ## 🚀 Getting Started
 
-### 1️⃣ Clone the repository
+### 1️⃣ Prerequisites
+
+- Basic knowledge of Python & SQL (optional)
+
+### 2️⃣ Clone the repository
 
 ```bash
 git clone https://github.com/<your-username>/retail-pipeline.git
 cd retail-pipeline
 ```
 
-### 2️⃣ Environment Setup
+### 3️⃣ Environment Setup
 
-Create a file named `.env` in the root directory with your database credentials:
+Create a `.env` file with database credentials:
 
 ```env
 DB_USER=retail_user
@@ -70,10 +75,32 @@ DB_NAME=retail_db
 DB_PORT=5433   # default mapped port
 ```
 
-### 🔧 Access & Output
+### 4 Access the services
 
-- **API Docs**: [http://localhost:8000](http://localhost:8000)
+- **API** → [http://localhost:8000](http://localhost:8000)
 - **Postgres** → Host: `localhost`, Port: `5433`
+
+---
+
+## 🔄 Workflow
+
+1. **Spark Job**
+
+   - Reads raw CSV from `/app/data`
+   - Cleans missing values & transforms schema
+   - Aggregates sales per city & product
+   - Writes processed parquet → `/app/processed_sales/current`
+
+2. **Loader**
+
+   - Reads parquet files from shared volume
+   - Loads aggregated data into PostgreSQL
+
+3. **API**
+   - Exposes endpoints to query processed data
+   - Ready to integrate with BI dashboards or frontends
+
+---
 
 ## 📊 Example Output
 
@@ -83,13 +110,20 @@ DB_PORT=5433   # default mapped port
 | --------- | --------- | ----------- | --------- |
 | Delhi     | P123      | 150000.00   | 250.50    |
 | Jaipur    | P456      | 78000.00    | 180.30    |
-| Mumbai    | P789      | 210500.00   | 310.75    |
 
 ---
 
-## 📌 Notes & Future Work
+## 🔧 Development Notes
 
-- The pipeline uses atomic writes to a current directory to prevent Spark overwrite errors.
-- To completely reset the database and volumes, run docker-compose down -v.
+- The pipeline uses **atomic writes** (`/processed_sales/current`) to avoid Spark overwrite errors.
+- Spark job uses **temporary directories** for safe concurrent runs.
+- To reset everything (including volumes):
 
-**Future plans include**: adding multi-tenancy, expanding API endpoints with more analytics, and building a dashboard UI.
+---
+
+## 📌 Future Enhancements
+
+- ✅ Add multi-tenant system (will be given api key and shop id to every shop)
+- ✅ Expand API with filtering & analytics endpoints
+- ✅ Add dashboard UI with React/Next.js
+- ✅ Integrate monitoring (Prometheus + Grafana)
